@@ -3,8 +3,14 @@ from django.http import HttpResponse
 
 def index(request):
 # (request) is an argument.
-    return HttpResponse("Rango says hey there partner!")
-    # HttpResponse in an object from the django.http module
+    context_dict = {
+        'boldmessage': 'Crunchy, creamy, cookie, candy, cupcake!'
+    }
+    return render(request, 'rango/index.html', context=context_dict)
     
+
+def about(request):
+    return HttpResponse("This is the about page" + " " + "<a href='/rango/'>Index</a>")
+
 
 
