@@ -11,10 +11,25 @@
     <h1>Rango says...</h1>
     <div>
         hey there partner! <br/>
-        <strong>{{ boldmessage }}</strong><br/>
+        <strong>{{ boldmessage }}</strong>
     </div>
+
     <div>
-        <a href="/rango/about/">About</a><br/>
+    <!-- categories is from 'context_dict['categories'] = category_list' in views. -->
+    {% if categories %}
+        <ul>
+            <!-- 'category' is just a variable to iterate through the for loop -->
+            {% for category in categories %}
+                <li>{{ category.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <strong>There are no categories present.</strong>
+    {% endif %}
+    </div>
+
+    <div>
+        <a href="/rango/about/">About Rango</a><br/>
         <img src="{% static 'images/rango.jpeg' %}"
              alt="Picture of Rango" />
     </div>
