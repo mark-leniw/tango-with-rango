@@ -1,26 +1,39 @@
 <!DOCTYPE html>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+        {% block title_block %}
+            {% if category %}
+                {{ category.name }}
+            {% else %}
+                Uknown Category
+            {% endif %}
+        {% endblock %}
+    </title>
 </head>
 <body>
-    <h1>Add a Page to {{ category.name }}</h1>
-    <div>
-        <form id="add_page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Add Page" />
-        </form>
-    </div>
+    {% block body_block %}
+        <h1>Add a Page to {{ category.name }}</h1>
+        <div>
+            <form id="add_page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Add Page" />
+            </form>
+        </div>
+    {% endblock %}
 </body>
 </html>
